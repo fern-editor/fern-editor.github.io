@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>fern</title>
+	<meta name="keywords" content="HTML, CSS, JavaScript">
+	<meta charset="utf-8">
+</head>
+<style type="text/css">
+	body{
+		background-color: #f5f5f5;
+	}
+	table.center {
+    padding: 50px;
+    }
+	textarea{
+		background-color: #fafafa;
+		color: #0d0d0d;
+		border-radius: 4px;
+		font-family: courier;
+		font-size: 13px;
+		padding: 20px;
+		border: 1px solid #c9c9c9;
+		resize: none;
+		outline: none;
+		height: 500px;
+		width: 580px;
+	}
+	textarea:focus{
+		background-color: #ffffff;
+	}
+	iframe{
+		background-color: #ffffff;
+		border-radius: 4px;
+		border: 1px solid #c9c9c9;
+		outline: none;
+		height:540px;
+		width: 660px;
+	}
+	td{
+		width: 50%;
+	}
+	button{
+		padding: 5px;
+		border-radius: 5px;
+		background-color: lightgrey;
+		border: 1px solid darkgrey;
+		color: black;
+		outline: none;
+		transition-duration: 0.2s;
+	}
+	button:hover{
+		background-color: darkgrey;
+	}
+	button:active{
+	color: white;
+    background-color: grey;
+    }
+    .file1{
+    	opacity: 0;
+        width: 0.1px;
+  		height: 0.1px;
+  		position: absolute;
+    }
+    .file{
+    	font-family: Arial;
+    	font-size: 10pt;
+    	padding: 5px;
+		border-radius: 5px;
+		background-color: lightgrey;
+		border: 1px solid darkgrey;
+		color: black;
+		outline: none;
+		transition-duration: 0.2s;
+    }
+    .file:hover{
+		background-color: darkgrey;
+	}
+	.file:active{
+	   color: white;
+       background-color: grey;
+    }
+</style>
+<script type="text/javascript">
+window.onbeforeunload = function() {
+   	return "Leave page? Changes you made may not be saved.";
+}
+let input = document.queryselector('input')
+
+let textarea = document.queryselector('textarea')
+
+// This event listener has been implemented to identify a
+// Change in the input section of the html code
+// It will be triggered when a file is chosen.
+input.addEventListener('change', () => {
+	let files = input.files;
+
+	if (files.length == 0) return;
+
+	/* If any further modifications have to be made on the
+	Extracted text. The text can be accessed using the
+	file variable. But since this is const, it is a read
+	only variable, hence immutable. To make any changes,
+	changing const to var, here and In the reader.onload
+	function would be advisible */
+	const file = files[0];
+
+	let reader = new FileReader();
+
+	reader.onload = (e) => {
+		const file = e.target.result;
+
+		// This is a regular expression to identify carriage
+		// Returns and line breaks
+		const lines = file.split(/\r\n|\n/);
+		textarea.value = lines.join('\n');
+
+	};
+
+	reader.onerror = (e) => alert(e.target.error.name);
+
+	reader.readAsText(file);
+});
+function insertInto(str, input){
+    var val = input.value, s = input.selectionStart, e = input.selectionEnd;
+    input.value = val.slice(0,e)+str+val.slice(e);
+    if (e==s) input.selectionStart += str.length - 1;
+    input.selectionEnd = e + str.length -1;
+}
+$(".editable").keypress(function(e) {
+    var closures = {40:')',91:']', 123:'}'};
+    if (c = closures[e.which]) insertInto(c, this);
+});	
+	function run(){
+		document.getElementById("display").srcdoc = document.getElementById('html').value;
+	}
+   	function myFunction(event) {
+        var x = event.key;
+
+  		if (x == "<") {
+  			insertInto('>', document.getElementById('html'));
+  		}
+  		if (x == "(") {
+  			insertInto(')', document.getElementById('html'));
+  		}
+  		if (x == "[") {
+  			insertInto(']', document.getElementById('html'));
+  		}
+  		if (x == '"') {
+  			insertInto('"', document.getElementById('html'));
+  		}
+  		if (x == "{") {
+  			insertInto('}', document.getElementById('html'));
+  		}
+  		if (x == "'") {
+  			insertInto("'", document.getElementById('html'));
+  		}
+  		if (x == "Backspace") {
+  			input.selectionStart = input.selectionStart+1;
+  		}
+	}
+	function download(){
+		var head = prompt("What do you want to name your file?","webpage")
+    	var text = document.getElementById("html").value;
+    	var blob = new Blob([text], { type: "text/plain"});
+    	var anchor = document.createElement("a");
+    	head = head.replace(/ /g,"_")
+    	anchor.download = head.concat(".html");
+    	anchor.href = window.URL.createObjectURL(blob);
+    	anchor.target ="_blank";
+    	anchor.style.display = "none";
+    	document.body.appendChild(anchor);
+    	anchor.click();
+    	document.body.removeChild(anchor);
+ }
+</script>
+<body>
+<table class="center">
+<tr>
+<td>
+<table>
+<tr>
+<td>
+<button onclick="run()">Run</button>
+</td>
+<td>
+<button onclick="download()">Save</button>
+</td>
+<td>
+<input type="file" id="file" class="file1" accept=".html, .txt">
+<label for="file" class="file">Open</label>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td>
+<textarea onkeydown="myFunction(event)" wrap="off" id="html" placeholder="<p>Hello World!</p>" spellcheck="false">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title></title>
+<meta charset="utf-8">
+</head>
+<body>
+</body>
+</html>
+</textarea>
+<iframe id="display" srcdoc=""></iframe>
+</td>
+</tr>
+</table>
+</body>
+</html>
