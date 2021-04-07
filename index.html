@@ -85,9 +85,9 @@
 window.onbeforeunload = function() {
    	return "Leave page? Changes you made may not be saved.";
 }
-let input = document.queryselector('input')
+let input = document.queryselector('.input')
 
-let textarea = document.queryselector('textarea')
+let textarea = document.queryselector('.textarea')
 
 // This event listener has been implemented to identify a
 // Change in the input section of the html code
@@ -187,7 +187,7 @@ $(".editable").keypress(function(e) {
 <button onclick="download()">Save</button>
 </td>
 <td>
-<input type="file" id="file" class="file1" accept=".html, .txt">
+<input class="input"type="file" id="file" class="file1" accept=".html, .txt">
 <label for="file" class="file">Open</label>
 </td>
 </tr>
@@ -196,7 +196,7 @@ $(".editable").keypress(function(e) {
 </tr>
 <tr>
 <td>
-<textarea onkeydown="myFunction(event)" wrap="off" id="html" placeholder="<p>Hello World!</p>" spellcheck="false">
+<textarea onkeydown="myFunction(event)" wrap="off" id="html" class=".textarea" placeholder="<p>Hello World!</p>" spellcheck="false">
 <!DOCTYPE html>
 <html lang="en">
 <head>
