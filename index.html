@@ -5,15 +5,19 @@
 	<title>fern</title>
 	<meta name="keywords" content="HTML, CSS, JavaScript">
 	<meta charset="utf-8">
-	<a href="#"><img src="ferns.png" alt="fern" height="90px"></a>
+	<table><tr><td><a href="#"><img src="ferns.png" alt="fern" height="90px"></a></td><td><p class="projname" contenteditable="true" id="projname"></p></td></tr></table>
 </head>
 <style type="text/css">
 	body{
 		background-color: #1b1536;
 	}
 	table.center {
-    padding: 50px;
-    }
+                padding: 50px;
+        }
+	p.projname{
+		font-family: courier;
+		font-size: 25px;
+	}
 	textarea{
 		background-color: #0e0b1c;
 		color: #f7f7f7;
@@ -162,7 +166,7 @@ $(".editable").keypress(function(e) {
   		}
 	}
 	function download(){
-		var head = prompt("What do you want to name your file?","webpage")
+	var head = prompt("What do you want to name your file?",document.getElementById("projname").innerHTML)
     	var text = document.getElementById("html").value;
     	var blob = new Blob([text], { type: "text/plain"});
     	var anchor = document.createElement("a");
