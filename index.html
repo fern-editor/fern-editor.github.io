@@ -178,7 +178,7 @@ $(".editable").keypress(function(e) {
 	}
 	function download(){
 	var projname = document.getElementById("projname").value;
-	var head = prompt("Save file as ",projname," ?", projname)
+	var head = prompt("Save file as "+projname+" ?",projname)
     	var text = document.getElementById("html").value;
     	var blob = new Blob([text], { type: "text/plain"});
     	var anchor = document.createElement("a");
