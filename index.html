@@ -177,7 +177,8 @@ $(".editable").keypress(function(e) {
   		}
 	}
 	function download(){
-	var head = prompt("What do you want to name your file?",document.getElementById("projname").innerHTML)
+	var projname = document.getElementById("projname").value;
+	var head = prompt("What do you want to name your file?", projname)
     	var text = document.getElementById("html").value;
     	var blob = new Blob([text], { type: "text/plain"});
     	var anchor = document.createElement("a");
