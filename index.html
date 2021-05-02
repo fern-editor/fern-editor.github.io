@@ -65,6 +65,7 @@
 		color: white;
 		outline: none;
 		transition-duration: 0.2s;
+		display: inline-block;
 	}
 	button:hover{
 		background-color: #c43100;
@@ -194,24 +195,10 @@ $(".editable").keypress(function(e) {
 </script>
 <body>
 <table class="center">
-<tr>
-<td>
-<table>
-<tr>
-<td>
 <button onclick="run()">Run</button>
-</td>
-<td>
 <button onclick="download()">Save</button>
-</td>
-<td>
 <input type="file" id="file" class="file1" accept=".html, .txt">
 <label for="file" class="file">Open</label>
-</td>
-</tr>
-</table>
-</td>
-</tr>
 <tr>
 <td>
 <textarea onkeydown="myFunction(event)" wrap="off" id="html" class=".textarea" placeholder="<p>Hello World!</p>" spellcheck="false">
