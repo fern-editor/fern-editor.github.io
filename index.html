@@ -3,11 +3,9 @@
 <head>
 	<link rel = "icon" href = "ferns.png" type = "image/x-icon">
 	<title>fern</title>
-	<meta name="google-site-verification" content="wNxfDi_rfoyur8QPE666N20iicAHcskpJLD-TwxF8_c" />
-	<meta name="keywords" content="HTML, CSS, JavaScript, editor, fern, simple">
+	<meta name="keywords" content="HTML, CSS, JavaScript">
 	<meta charset="utf-8">
-	<meta name="description" content="fern is an easy to use html source editor for the ones who need something simple.">
-	<table><tr><td><a href="#"><img src="ferns.png" alt="fern" height="90px"></a></td><td><input class="projname" placeholder="Title" contenteditable="true" id="projname"></input></td></tr></table>
+	<table><tr><td><a href="#"><img src="ferns.png" alt="fern" height="90px"></a></td><td><input class="projname" placeholder="Name" contenteditable="true" id="projname"></input></td></tr></table>
 </head>
 <style type="text/css">
 	body{
@@ -18,9 +16,6 @@
 		padding-top: 3px !important;
         }
 	input.projname{
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
 		position: absolute;
 		left: 120px;
 		background-color: #1b1536;
@@ -38,7 +33,6 @@
 	textarea{
 		background-color: #0e0b1c;
 		color: #f7f7f7;
-		line-height: 1.4;
 		border-radius: 5px;
 		font-family: courier;
 		font-size: 13px;
@@ -47,7 +41,9 @@
 		resize: none;
 		outline: none;
 		height: 500px;
-		width: 600px;
+		width: 45%;
+		float: left;
+		display: inline-block;
 	}
 	textarea:focus{
 		background-color: #100d21;
@@ -59,7 +55,9 @@
 		border: 1px solid #0a0814;
 		outline: none;
 		height:540px;
-		width: 640px;
+		width: 45%;
+		float: left;
+		display: inline-block;
 	}
 	td{
 		width: 50%;
@@ -69,6 +67,7 @@
 		border-radius: 5px;
 		background-color: #ff4000;
 		border: 1px solid #c43100;
+		font-size: 13px;
 		color: white;
 		outline: none;
 		transition-duration: 0.2s;
@@ -105,6 +104,17 @@
 	   color: #ff4000;
        background-color: white;
     }
+    @media screen and (max-width: 600px) {
+    	.reflowable textarea{
+    		float: none;
+    		width: 98%;
+    	}
+    	.reflowable iframe{
+    		float: none;
+    		width: 98%;
+    	}
+  }
+}
 </style>
 <script type="text/javascript">
 window.onbeforeunload = function() {
@@ -159,6 +169,9 @@ $(".editable").keypress(function(e) {
 	function run(){
 		document.getElementById("display").srcdoc = document.getElementById('html').value;
 	}
+	function stop(){
+		document.getElementById("display").srcdoc = "Script stopped.";
+	}
    	function myFunction(event) {
         var x = event.key;
 
@@ -203,15 +216,16 @@ $(".editable").keypress(function(e) {
 <body>
 <table class="center">
 <div style="padding-left: 53px;padding-top: 50px;">
-<button onclick="run()">Run</button>
-<button onclick="download()">Save</button>
+<button onclick="run()" title="Click to run HTML">Run</button>
+<button onclick="download()" title="Click to save HTML">Save</button>
+<button onclick="stop()" title="Stop button, in case of misbehaving javascript.">⚠︎</button>
 <div hidden>
 <input type="file" id="file" class="file1" accept=".html, .txt">
 <label for="file" class="file">Open</label>
 </div>
 </div>
-<tr>
-<td>
+
+<div class="reflowable">
 <textarea onkeydown="myFunction(event)" wrap="off" id="html" class=".textarea" placeholder="<p>Hello World!</p>" spellcheck="false">
 <!DOCTYPE html>
 <html lang="en">
@@ -220,12 +234,13 @@ $(".editable").keypress(function(e) {
 <meta charset="utf-8">
 </head>
 <body>
+<h1 style="font-family: Helvetica; padding: 40px; text-align: center;">Hello, World!</h1>
 </body>
 </html>
 </textarea>
-<iframe id="display" srcdoc=""></iframe>
-</td>
-</tr>
+<iframe id="display" srcdoc="Click on the 'Run' button"></iframe>
+</div>
+
 </table>
 </body>
 </html>
